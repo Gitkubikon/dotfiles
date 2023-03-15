@@ -1,0 +1,45 @@
+@import "config.css";
+@import "variables.css";
+@import "icons/icons.css";
+@import "urlbar/urlbar.css";
+@import "navbar/navbar.css";
+@import "popup/popup.css";
+@import "interface/interface.css";
+@import "userChrome-tabline.css";
+
+:root {
+  --sidebar-hover-width: 52px;
+  --sidebar-visible-width: 2150px;
+}
+
+#TabsToolbar,
+#sidebar-header {
+  display: none !important;
+}
+
+tab-item tab-label {
+  margin-left: 16px !important;
+}
+
+#sidebar-box {
+  min-width: 1em !important;
+  position: relative !important;
+  overflow: hidden;
+  max-width: var(--sidebar-hover-width) !important;
+}
+
+#sidebar-box:hover {
+  transition: all 200ms !important;
+  max-width: var(--sidebar-visible-width) !important;
+}
+
+#searchbar,
+#searchbar-textbox {
+  background-color: #1e222a;
+}
+
+#urlbar {
+  --toolbar-field-background-color: transparent !important;
+}
+
+

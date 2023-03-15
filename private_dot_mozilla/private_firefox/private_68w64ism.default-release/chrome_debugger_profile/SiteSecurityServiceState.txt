@@ -1,0 +1,1 @@
+incoming.telemetry.mozilla.org:HSTS	0	19431	1710414372757,1,0

@@ -1,0 +1,21 @@
+2023/03/13-17:19:23.175 aec2e Reusing MANIFEST /home/nikita/.config/YouTube Music/IndexedDB/https_music.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/03/13-17:19:23.175 aec2e Recovering log #300
+2023/03/13-17:19:23.214 aec2e Reusing old log /home/nikita/.config/YouTube Music/IndexedDB/https_music.youtube.com_0.indexeddb.leveldb/000300.log 
+2023/03/13-17:48:20.478 ca0eb Level-0 table #305: started
+2023/03/13-17:48:20.512 ca0eb Level-0 table #305: 967543 bytes OK
+2023/03/13-17:48:20.518 ca0eb Delete type=0 #300
+2023/03/13-17:58:36.250 d7163 Compacting 1@1 + 1@2 files
+2023/03/13-17:58:36.265 d7163 Generated table #306@1: 1630 keys, 56946 bytes
+2023/03/13-17:58:36.265 d7163 Compacted 1@1 + 1@2 files => 56946 bytes
+2023/03/13-17:58:36.267 d7163 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/03/13-17:58:36.268 d7163 Delete type=2 #305
+2023/03/13-17:58:36.268 d7163 Delete type=2 #302
+2023/03/13-19:53:36.586 152ccf Level-0 table #308: started
+2023/03/13-19:53:36.612 152ccf Level-0 table #308: 768058 bytes OK
+2023/03/13-19:53:36.616 152ccf Delete type=0 #304
+2023/03/13-20:10:04.378 1659cd Compacting 1@1 + 1@2 files
+2023/03/13-20:10:04.393 1659cd Generated table #309@1: 1798 keys, 58450 bytes
+2023/03/13-20:10:04.393 1659cd Compacted 1@1 + 1@2 files => 58450 bytes
+2023/03/13-20:10:04.394 1659cd compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/03/13-20:10:04.395 1659cd Delete type=2 #306
+2023/03/13-20:10:04.395 1659cd Delete type=2 #308
