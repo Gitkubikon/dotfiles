@@ -16,7 +16,7 @@ done
 /usr/lib/xfce-polkit/xfce-polkit &
 
 # Set wallpaper
-swaybg --output '*' --mode fill --image ~/.config/hypr/wallpapers/wallpaper.jpg &
+swaybg --output '*' --mode fill --image ~/.config/hypr/wallpapers/anime_circle.png &
 
 # Apply themes
 ~/.config/hypr/scripts/gtkthemes &
