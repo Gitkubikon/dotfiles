@@ -18,7 +18,7 @@ This will apply my dotfiles to your home directory, creating any necessary direc
 Philosophy
 ----------
 
-But that's not all! My dotfiles are also designed to be efficient in use. I handpicked the programs and utilities I use, making sure they're lightweight and speedy. I avoid bloating my system with unnecessary packages or services, so you can enjoy a hassle-free and zippy experience.Components
+But that's not all! My dotfiles are also designed to be efficient in use. I handpicked the programs and utilities I use, making sure they're lightweight and speedy. I avoid bloating my system with unnecessary packages or services, so you can enjoy a hassle-free and zippy experience.
 
 Components
 ----------
