@@ -32,9 +32,8 @@ My dotfiles repository contains configuration files for the following programs:
 *   LunarVim
 *   hyprland (Window Manager)
 *   youtube-music (Music Player)
+*   firefox (chrome dotfiles featuring configs for treestyletab and cattpuccin colortheme)
 *   waybar (Status Bar)
-
-In addition to these, I have also included scripts and utilities that I use on a daily basis, such as `rofi` and `dunst`.
 
 Conclusion
 ----------
