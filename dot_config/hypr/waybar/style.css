@@ -10,9 +10,9 @@
 
 /** ********** Waybar Window ********** **/
 window#waybar {
-    background-color: #1e1e2e;
-	color: #1e1e2e;
-    border-bottom: 2px solid #313244;
+    background-color: rgba(30, 30, 46, 0.9);
+	  color: #1e1e2e;
+    border-bottom: 2px solid rgba(30, 30, 46, 0.92);
     transition-property: background-color;
     transition-duration: .5s;
 }
