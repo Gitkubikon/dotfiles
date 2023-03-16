@@ -10,7 +10,7 @@ To install my dotfiles, you will need to have `chezmoi` installed on your machin
 
 Once you have `chezmoi` installed, you can clone this repository and apply my dotfiles to your system by running the following command:
 
-```chezmoi init --apply <github-username>/dotfiles```
+```chezmoi init --apply git@github.com:Gitkubikon/dotfiles.git```
 
 This will apply my dotfiles to your home directory, creating any necessary directories and files.
 
