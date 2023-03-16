@@ -12,7 +12,7 @@ Installation
 But first things first, to install these bad boys, you'll need to have chezmoi-chan installed on your machine. Don't worry, it's easy-peasy to install - just follow the official documentation (or ask your senpai for help).
 
 
-```chezmoi init --apply git@github.com:Gitkubikon/dotfiles.git```
+    ```chezmoi init --apply git@github.com:Gitkubikon/dotfiles.git```
 
 This will apply my dotfiles to your home directory, creating any necessary directories and files.
 
@@ -26,12 +26,12 @@ Components
 
 My dotfiles repository contains configuration files for the following programs:
 
-    zsh: A shell that keeps you kawaii and organized.
-    LunarVim: The magical editor that makes coding a fairy tale.
-    hyprland: The window manager that lets you fly through your tasks.
-    youtube-music: The music player that helps you stay in tune with your kawaii side.
-    firefox: The browser that's purrfect for your browsing needs, featuring configs for treestyletab and cattpuccin colortheme.
-    waybar: The status bar that adds some spice to your desktop.
+*  zsh: A shell that keeps you kawaii and organized.
+*  LunarVim: The magical editor that makes coding a fairy tale.
+*  hyprland: The window manager that lets you fly through your tasks.
+*  youtube-music: The music player that helps you stay in tune with your kawaii side.
+*  firefox: The browser that's purrfect for your browsing needs, featuring configs for treestyletab and cattpuccin colortheme.
+*  waybar: The status bar that adds some spice to your desktop.
 
 Conclusion
 ----------
