@@ -1,6 +1,6 @@
-Introduction
+こんにちわ!
 ------------
-こんにちわ! Welcome to my dotfiles repository! This repository contains the configuration files that I use to personalize my Hyprland Arch Linux environment. I, your humble servant, present to you my dotfiles, which I have carefully crafted to cater to all of my nerdy whims and fancies.
+As your humble servant, I welcome you to my dotfiles repository, where you will find the meticulously crafted configuration files that I use to satisfy all of my nerdy whims and fancies in my Hyprland Arch Linux environment.
 
 If you're anything like me, you're probably an anime-loving, ramen-scarfing weaboo, who loves nothing more than customizing your computer to fit your kawaii aesthetic. Fear not, my fellow otaku, for my dotfiles will help you achieve just that!
 
