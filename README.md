@@ -11,8 +11,7 @@ Installation
 
 But first things first, to install these bad boys, you'll need to have chezmoi-chan installed on your machine. Don't worry, it's easy-peasy to install - just follow the official documentation (or ask your senpai for help).
 
-
-    ```chezmoi init --apply git@github.com:Gitkubikon/dotfiles.git```
+    chezmoi init --apply git@github.com:Gitkubikon/dotfiles.git
 
 This will apply my dotfiles to your home directory, creating any necessary directories and files.
 
