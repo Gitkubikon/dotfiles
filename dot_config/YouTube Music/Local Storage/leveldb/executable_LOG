@@ -1,6 +1,0 @@
-2023/03/13-17:19:22.254 aec2c Reusing MANIFEST /home/nikita/.config/YouTube Music/Local Storage/leveldb/MANIFEST-000001
-2023/03/13-17:19:22.254 aec2c Recovering log #148
-2023/03/13-17:19:22.254 aec2c Reusing old log /home/nikita/.config/YouTube Music/Local Storage/leveldb/000148.log 
-2023/03/13-18:12:22.711 e5aa4 Level-0 table #152: started
-2023/03/13-18:12:22.716 e5aa4 Level-0 table #152: 14218 bytes OK
-2023/03/13-18:12:22.718 e5aa4 Delete type=0 #148
