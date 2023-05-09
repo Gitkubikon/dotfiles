@@ -32,10 +32,27 @@ My dotfiles repository contains configuration files for the following programs:
 *  firefox: The browser that's purrfect for your browsing needs, featuring configs for treestyletab and cattpuccin colortheme.
 *  waybar: The status bar that adds some spice to your desktop.
 
+### Chezmoi Commands
+
+| Command                  | Description                                                                                     |
+| ------------------------ | ----------------------------------------------------------------------------------------------- |
+| `chezmoi init`            | Initialize a new Chezmoi repository.                                                            |
+| `chezmoi add <path>`      | Add a file or directory to the Chezmoi repository. If the path is a directory, all of its contents will be added recursively. |
+| `chezmoi apply`           | Create symlinks from the files in the Chezmoi repository to their appropriate locations in the user's home directory. |
+| `chezmoi edit <path>`     | Open a file for editing using the user's preferred text editor.                                |
+| `chezmoi cd`              | Change to the root of the Chezmoi repository.                                                   |
+| `chezmoi update`          | Pull changes from the Chezmoi source repository and apply them.                                 |
+| `chezmoi diff`            | Show differences between the current state of dotfiles in your home directory and the version controlled by Chezmoi. |
+| `chezmoi status`          | Show the status of your dotfiles, indicating which ones are being managed by Chezmoi.           |
+| `chezmoi forget <path>`   | Stop managing a file or directory with Chezmoi. This will remove the symlink in your home directory and delete the file from the Chezmoi repository. |
+| `chezmoi import <url>`    | Import a file or directory from a URL into the Chezmoi repository.                              |
+| `chezmoi clean`           | Remove any files and directories in your home directory that are not being managed by Chezmoi.  |
+| `chezmoi archive <file>`  | Create an archive of the dotfiles managed by Chezmoi.                                           |
+
+Note that this is not an exhaustive list of Chezmoi commands, and there are many more options and subcommands available for each of these. I recommend checking out the Chezmoi documentation for more information on how to use these commands and customize your dotfile management workflow.
+
 Conclusion
 ----------
-
-
 
 And if you have any questions or suggestions, please don't hesitate to hit me up. I'll be more than happy to help my fellow Kohai's!
 
