@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Initialize the previous window ID variable
+previousWindow=""
+
+while true; do
+  # Fetch the current active window using hyprctl
+  currentWindow=$(hyprctl activewindow -j)
+
+  # Compare the current active window with the previous one
+  if [[ "$currentWindow" != "$previousWindow" ]]; then
+    echo "Active window changed:"
+    echo "$currentWindow"
+    previousWindow="$currentWindow"  # Update the previous window
+  fi
+
+  # Wait for a short period before checking again
+  sleep 1
+done

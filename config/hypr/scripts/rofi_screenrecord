@@ -1,0 +1,190 @@
+#!/usr/bin/env bash
+
+# Get Colors
+DIR="$HOME/.config/hypr"
+background="`cat $DIR/rofi/shared/colors.rasi | grep 'background:' | cut -d':' -f2 | tr -d ' '\;`"
+accent="`cat $DIR/rofi/shared/colors.rasi | grep 'selected:' | cut -d':' -f2 | tr -d ' '\;`"
+
+# Import Current Theme
+RASI="$DIR/rofi/screenrecord.rasi"
+
+# Theme Elements
+prompt='Screen Recording'
+mesg="Directory :: $HOME/Videos/Capture"
+
+# Options
+layout=`cat ${RASI} | grep 'USE_ICON' | cut -d'=' -f2`
+if [[ "$layout" == 'NO' ]]; then
+    option_1=" Start Recording Now"
+    option_2=" Start Recording in 5s"
+    option_3=" Start Recording in 10s"
+    option_4="缾 Record Window Now"
+    option_5=" Record Window in 5s"
+    option_6=" Record Window in 10s"
+else
+    option_1=""
+	  option_2=""
+	  option_3=""
+	  option_4=""
+	  option_5=""
+    option_6=""
+fi
+
+# Rofi CMD
+rofi_cmd() {
+    rofi -dmenu \
+        -p "$prompt" \
+        -mesg "$mesg" \
+        -markup-rows \
+        -theme ${RASI}
+}
+
+# Pass variables to rofi dmenu
+run_rofi() {
+    echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6" | rofi_cmd
+}
+
+# Directory to save videos
+VIDEOSHOTDIR="$HOME/Videos/Capture"
+
+# Create directory if it doesn't exist
+if [[ ! -e $VIDEOSHOTDIR ]]; then
+  mkdir -p "$VIDEOSHOTDIR"
+fi
+
+# Paths for PID and resource files
+PIDPATH="$VIDEOSHOTDIR/videoshot.pid"
+RESOURCEPATH="$VIDEOSHOTDIR/videoshot.txt"
+
+# Codec options for the highest quality recording
+CODEC_CR=18
+CODEC_PRESET=slow
+CODEC_TUNE=zerolatency
+
+# Notify and view
+iDIR="$HOME/.config/hypr/mako/icons"
+notify_view () {
+  if [[ -e "$VIDPATH" ]]; then
+    notify_cmd_rec="notify-send -h string:x-canonical-private-synchronous:sys-notify-rec -u low -i ${iDIR}/picture.png"
+    ${notify_cmd_rec} "Recording Saved."
+    paplay /usr/share/sounds/freedesktop/stereo/screen-capture.oga &>/dev/null &
+    xdg-open "$VIDPATH"
+    ${notify_cmd_rec} "Recording Finished."
+  else
+    ${notify_cmd_rec} "Recording Deleted."
+  fi
+}
+
+# Countdown function
+countdown () {
+  for sec in `seq $1 -1 1`; do
+    notify-send -h string:x-canonical-private-synchronous:sys-notify-count -t 1000 -i "$iDIR"/timer.png "Starting recording in : $sec"
+    sleep 1
+  done
+}
+
+# Recording functions
+record_now () {
+  set_recording_area
+  start_recording
+}
+
+record_in5 () {
+  set_recording_area
+  countdown '5'
+  start_recording
+}
+
+record_in10 () {
+  set_recording_area
+  countdown '10'
+  start_recording
+}
+
+record_win_now () {
+  set_recording_window
+  start_recording
+}
+
+record_win_in5 () {
+  set_recording_window
+  countdown '5'
+  start_recording
+}
+
+record_win_in10 () {
+  set_recording_window
+  countdown '10'
+  start_recording
+}
+
+set_recording_area () {
+  RECORDING_AREA=$(slurp -b ${background:1}CC -c ${accent:1}ff -s ${accent:1}0D -w 4)
+}
+
+set_recording_window () {
+  w_pos=$(hyprctl activewindow | grep 'at:' | cut -d':' -f2 | tr -d ' ' | tail -n1)
+  w_size=$(hyprctl activewindow | grep 'size:' | cut -d':' -f2 | tr -d ' ' | tail -n1 | sed s/,/x/g)
+  RECORDING_AREA="$w_pos $w_size"
+}
+
+start_recording () {
+  TIME="$(date +%Y-%m-%d-%H-%M-%S)"
+  VIDPATH="$VIDEOSHOTDIR/rec-$TIME.mp4"
+  wf-recorder -g "$RECORDING_AREA" -c libx264 -p "crf=$CODEC_CR" -p "preset=$CODEC_PRESET" -p "tune=$CODEC_TUNE" -f "$VIDPATH" &
+  echo "$!" > "$PIDPATH"
+  echo "$VIDPATH" > "$RESOURCEPATH"
+  notify-send -h string:x-canonical-private-synchronous:sys-notify-rec "Start recording" "$VIDPATH"
+  wait $(cat $PIDPATH)
+  notify_view
+}
+
+# Ensure PID file does not exist
+if [[ -f "$PIDPATH" ]]; then
+  PID="$(cat $PIDPATH)"
+  kill -SIGINT "$PID"
+  rm "$PIDPATH"
+  rm "$RESOURCEPATH"
+  notify-send -h string:x-canonical-private-synchronous:sys-notify-rec "Recording stopped"
+  exit 0
+fi
+
+# Execute Command
+run_cmd() {
+    if [[ "$1" == '--opt1' ]]; then
+        record_now
+    elif [[ "$1" == '--opt2' ]]; then
+        record_in5
+    elif [[ "$1" == '--opt3' ]]; then
+        record_in10
+    elif [[ "$1" == '--opt4' ]]; then
+        record_win_now
+    elif [[ "$1" == '--opt5' ]]; then
+        record_win_in5
+    elif [[ "$1" == '--opt6' ]]; then
+        record_win_in10
+    fi
+}
+
+# Actions
+chosen="$(run_rofi)"
+case ${chosen} in
+    $option_1)
+        run_cmd --opt1
+        ;;
+    $option_2)
+        run_cmd --opt2
+        ;;
+    $option_3)
+        run_cmd --opt3
+        ;;
+    $option_4)
+        run_cmd --opt4
+        ;;
+    $option_5)
+        run_cmd --opt5
+        ;;
+    $option_6)
+        run_cmd --opt6
+        ;;
+esac

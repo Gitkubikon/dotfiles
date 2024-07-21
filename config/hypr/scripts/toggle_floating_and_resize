@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Get the ID of the currently active window
+ACTIVE_WINDOW=$(hyprctl activewindow | grep "address:" | awk '{print $2}')
+
+# Check if the window is currently floating
+IS_FLOATING=$(hyprctl clients | grep "$ACTIVE_WINDOW" -A 10 | grep "floating:" | awk '{print $2}')
+
+# Toggle floating mode
+hyprctl dispatch togglefloating
+
+# Give a moment for the state to update
+sleep 0.1
+
+# If the window is now floating, resize and center it
+if [ "$IS_FLOATING" = "no" ]; then
+    hyprctl dispatch resizewindow exact 640 360
+    hyprctl dispatch centerwindow
+fi
+

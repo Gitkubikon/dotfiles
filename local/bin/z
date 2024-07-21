@@ -1,0 +1,52 @@
+#!/bin/bash
+
+echo "Starting script..."
+
+# Check if the input file exists
+if [ ! -f "$1" ]; then
+    echo "File does not exist: $1"
+    exit 1
+fi
+
+# Generate the expected output PDF filename
+input_file="$1"
+base_name=$(basename "$input_file" .odt)
+temp_pdf="/tmp/${base_name}.pdf"
+
+echo "Expected PDF path: $temp_pdf"
+
+echo "Converting document to PDF..."
+libreoffice --headless --convert-to pdf --outdir /tmp "$input_file"
+convert_status=$?
+
+# Check the exit status of the LibreOffice command
+if [ $convert_status -ne 0 ]; then
+    echo "LibreOffice conversion failed with status: $convert_status"
+    exit 1
+fi
+
+# Verify the PDF was created
+if [ ! -f "$temp_pdf" ]; then
+    echo "PDF file not found after conversion: $temp_pdf"
+    # List files in /tmp to debug
+    echo "Listing /tmp directory contents:"
+    ls -l /tmp | grep "$base_name"
+    exit 1
+fi
+
+echo "Opening PDF with Zathura..."
+zathura-pywal "$temp_pdf" &
+
+ZATHURA_PID=$!
+
+# Wait for Zathura to close
+wait $ZATHURA_PID
+
+echo "Waiting a few seconds to ensure Zathura is fully loaded..."
+sleep 5  # Adjust the sleep duration as necessary for testing
+
+# Remove the temporary PDF file
+echo "Deleting temporary PDF file: $temp_pdf"
+rm -f "$temp_pdf"
+
+

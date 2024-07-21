@@ -1,0 +1,146 @@
+#!/usr/bin/env bash
+
+# Get Colors
+DIR="$HOME/.config/hypr"
+background="`cat $DIR/rofi/shared/colors.rasi | grep 'background:' | cut -d':' -f2 | tr -d ' '\;`"
+accent="`cat $DIR/rofi/shared/colors.rasi | grep 'selected:' | cut -d':' -f2 | tr -d ' '\;`"
+
+iDIR="$HOME/.config/hypr/mako/icons"
+
+# Directory to save videos
+VIDEOSHOTDIR="$HOME/Videos/Capture"
+
+# Create directory if it doesn't exist
+if [[ ! -e $VIDEOSHOTDIR ]]; then
+  mkdir -p "$VIDEOSHOTDIR"
+fi
+
+# Paths for PID and resource files
+PIDPATH="$VIDEOSHOTDIR/videoshot.pid"
+RESOURCEPATH="$VIDEOSHOTDIR/videoshot.txt"
+
+# Codec options for the highest quality recording
+CODEC_CR=18
+CODEC_PRESET=slow
+CODEC_TUNE=zerolatency
+
+# Notify and view
+notify_cmd_rec="notify-send -h string:x-canonical-private-synchronous:sys-notify-rec -u low -i ${iDIR}/picture.png"
+notify_view () {
+  if [[ -e "$VIDPATH" ]]; then
+    ${notify_cmd_rec} "Recording Saved."
+    paplay /usr/share/sounds/freedesktop/stereo/screen-capture.oga &>/dev/null &
+    xdg-open "$VIDPATH"
+    ${notify_cmd_rec} "Recording Finished."
+  else
+    ${notify_cmd_rec} "Recording Deleted."
+  fi
+}
+
+# Countdown function
+countdown () {
+  for sec in `seq $1 -1 1`; do
+    notify-send -h string:x-canonical-private-synchronous:sys-notify-count -t 1000 -i "$iDIR"/timer.png "Starting recording in : $sec"
+    sleep 1
+  done
+}
+
+# Recording functions
+record_now () {
+  set_recording_area
+  start_recording
+}
+
+record_in5 () {
+  set_recording_area
+  countdown '5'
+  start_recording
+}
+
+record_in10 () {
+  set_recording_area
+  countdown '10'
+  start_recording
+}
+
+record_win_now () {
+  set_recording_window
+  start_recording
+}
+
+record_win_in5 () {
+  set_recording_window
+  countdown '5'
+  start_recording
+}
+
+record_win_in10 () {
+  set_recording_window
+  countdown '10'
+  start_recording
+}
+
+record_win () {
+  set_recording_window
+  start_recording
+}
+
+record_area () {
+  set_recording_area
+  start_recording
+}
+
+set_recording_area () {
+  RECORDING_AREA=$(slurp -b ${background:1}CC -c ${accent:1}ff -s ${accent:1}0D -w 4)
+}
+
+set_recording_window () {
+  w_pos=$(hyprctl activewindow | grep 'at:' | cut -d':' -f2 | tr -d ' ' | tail -n1)
+  w_size=$(hyprctl activewindow | grep 'size:' | cut -d':' -f2 | tr -d ' ' | tail -n1 | sed s/,/x/g)
+  RECORDING_AREA="$w_pos $w_size"
+}
+
+start_recording () {
+  TIME="$(date +%Y-%m-%d-%H-%M-%S)"
+  VIDPATH="$VIDEOSHOTDIR/rec-$TIME.mp4"
+  wf-recorder -g "$RECORDING_AREA" -c libx264 -p "crf=$CODEC_CR" -p "preset=$CODEC_PRESET" -p "tune=$CODEC_TUNE" -f "$VIDPATH" &
+  echo "$!" > "$PIDPATH"
+  echo "$VIDPATH" > "$RESOURCEPATH"
+  notify-send -h string:x-canonical-private-synchronous:sys-notify-rec "Start recording" "$VIDPATH"
+  wait $(cat $PIDPATH)
+  notify_view
+}
+
+# Ensure PID file does not exist
+if [[ -f "$PIDPATH" ]]; then
+  PID="$(cat $PIDPATH)"
+  kill -SIGINT "$PID"
+  rm "$PIDPATH"
+  rm "$RESOURCEPATH"
+  notify-send -h string:x-canonical-private-synchronous:sys-notify-rec "Recording stopped"
+  exit 0
+fi
+
+# Command options
+if [[ "$1" == "--now" ]]; then
+  record_now
+elif [[ "$1" == "--in5" ]]; then
+  record_in5
+elif [[ "$1" == "--in10" ]]; then
+  record_in10
+elif [[ "$1" == "--win" ]]; then
+  record_win
+elif [[ "$1" == "--win-now" ]]; then
+  record_win_now
+elif [[ "$1" == "--win-in5" ]]; then
+  record_win_in5
+elif [[ "$1" == "--win-in10" ]]; then
+  record_win_in10
+elif [[ "$1" == "--area" ]]; then
+  record_area
+else
+  echo -e "Available Options : --now --in5 --in10 --win --win-now --win-in5 --win-in10 --area"
+fi
+
+exit 0
+

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# Configuration
+DIR="$HOME/.config/hypr"
+RASI="$DIR/rofi/asroot.rasi"
+ASROOT="$DIR/scripts/asroot"
+prompt='   Root'
+mesg="Run Applications As Root"
+
+# Define predefined options with their commands
+declare -A predefined_options=(
+    ["  Alacritty"]="alacritty --class alacritty-float,alacritty-float --config-file .config/hypr/alacritty/alacritty.toml"
+    ["  Thunar"]="thunar"
+    ["  Geany"]="geany"
+    ["  Ranger"]="alacritty --class alacritty-float,alacritty-float --config-file .config/hypr/alacritty/alacritty.toml -e ranger"
+    ["  Vim"]="alacritty --class alacritty-float,alacritty-float --config-file .config/hypr/alacritty/alacritty.toml -e vim"
+    ["  More ..."]="LOAD_MORE"
+)
+
+# Function to launch a command with xhost adjustments
+launch_command() {
+    local cmd=$1
+    
+    # Allow localuser root to access the X server
+    xhost +SI:localuser:root
+    
+    # Execute the command with root privileges
+    if [[ "$cmd" != "LOAD_MORE" ]]; then
+        eval "$ASROOT '$cmd'"
+    fi
+
+    # Revoke xhost permission after execution
+    xhost -SI:localuser:root
+}
+
+# Function to load and display all applications
+load_and_execute() {
+    # Dynamically list applications
+    applications=$(find ${PATH//:/ } -maxdepth 1 -executable -type f -printf '%f\n' 2>/dev/null | sort -u)
+    
+    # Exclude the "Load More Applications..." option and relaunch rofi
+    chosen=$(echo -e "${applications}" | rofi -dmenu -p "$prompt" -mesg "$mesg" -markup-rows -theme "${RASI}")
+    
+    # Execute chosen application
+    [[ -n "$chosen" ]] && launch_command "$chosen"
+}
+
+# Convert predefined options to a string for rofi
+rofi_options=$(for key in "${!predefined_options[@]}"; do echo "$key"; done | rofi -dmenu -p "$prompt" -mesg "$mesg" -markup-rows -theme "${RASI}")
+
+# Determine action based on selected option
+if [[ "${predefined_options[$rofi_options]}" == "LOAD_MORE" ]]; then
+    load_and_execute
+else
+    launch_command "${predefined_options[$rofi_options]}"
+fi
+

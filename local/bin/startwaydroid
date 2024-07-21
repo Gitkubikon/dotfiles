@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Start Waydroid UI and capture output
+waydroid show-full-ui &> /tmp/waydroid.log &
+
+echo "Waiting for Waydroid to establish an ADB connection..."
+
+# Monitor the log until the ADB connection message appears
+while ! grep -q "Established ADB connection to Waydroid device at" /tmp/waydroid.log; do
+    sleep 1
+done
+
+echo "ADB connection established. Proceeding with mount operations."
+
+# Execute mount commands
+sudo mount --bind ~/Documents ~/.local/share/waydroid/data/media/0/Documents
+sudo mount --bind ~/Downloads ~/.local/share/waydroid/data/media/0/Download
+sudo mount --bind ~/Music ~/.local/share/waydroid/data/media/0/Music
+sudo mount --bind ~/Pictures ~/.local/share/waydroid/data/media/0/Pictures
+sudo mount --bind ~/Videos ~/.local/share/waydroid/data/media/0/Movies
+
+echo "Mount operations completed."

@@ -1,0 +1,110 @@
+#! /bin/bash
+
+# mpdpipe
+# Copyright (C) 2021 Martin Dosch 
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+ytdl=$(command -v yt-dlp)
+if [[ -z "$ytdl" ]]
+then
+	ytdl=$(command -v youtube-dl)
+	if [[ -z "$ytdl" ]]
+	then
+		echo "No youtube-dl found."
+		exit
+	fi
+fi
+
+mpc=$(command -v mpc)
+if [[ -z "$mpc" ]]
+then
+	echo "No mpc found."
+	exit
+fi
+
+get_song_url () {
+	url=$("$ytdl" -qgf bestaudio "$1")
+}
+
+check_url () {
+	regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+	if [[ ! $1 =~ $regex ]]
+	then
+		echo "$1 is not a valid URL."
+		exit
+	fi
+}
+
+show_help () {
+	basename=$(command -v basename)
+	if [[ -z "$basename" ]]
+	then
+		program="$0"
+	else
+		program=$($basename "$0")
+	fi
+	echo "Usage:"
+	echo "$program url"
+	echo "$program mpd_host url"
+	exit
+}
+
+case $# in
+	1)
+		if [ "$1" = "help" ] || [ "$1" = "--help" ]
+		then
+			show_help
+		fi
+		if ! $mpc -q
+		then
+			echo "Couldn't connect to mpd."
+			exit
+		fi
+		mpc_command="$mpc"
+		input="$1"
+		;;
+	2)
+		if ! $mpc -qh "$1"
+		then
+			echo "Couldn't connect to mpd at $1."
+			exit
+		fi
+		mpc_command="$mpc -h $1"
+		input="$2"
+		;;
+	*)
+		echo "Invalid input."
+		show_help
+		;;
+esac
+
+check_url "$input"
+
+$mpc_command clear
+firstrun=1
+
+for link in $("$ytdl" --flat-playlist --no-warnings -qg "$input")
+do
+	get_song_url "$link"
+	if [ -n "$url" ]
+	then
+		$mpc_command add "$url"
+		if [ $firstrun -eq 1 ]
+		then
+			$mpc_command play
+			firstrun=0
+		fi
+	fi
+done

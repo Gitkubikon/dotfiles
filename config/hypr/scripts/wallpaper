@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2023 Aditya Shakya <adi1090x@gmail.com>
+##
+## Set Wallpaper in Hyprland
+
+WALLPAPER='/home/nikita/Pictures/wallpapers/wallpapersden.com_colorful-dots-space_3840x2160-art-scale-6_00x.jpg'
+
+swaybg --output '*' --mode fill --image "$WALLPAPER"

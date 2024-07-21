@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Get the current layout
+current_layout=$(gsettings get org.gnome.desktop.input-sources current | awk '{print $2}')
+
+# Toggle between layouts
+case $current_layout in
+    0)
+        gsettings set org.gnome.desktop.input-sources current 1
+        notify-send -h string:x-canonical-private-synchronous:hypr-cfg -u low "Keyboard Layout" "Switched to German (DE)"
+        ;;
+    1)
+        gsettings set org.gnome.desktop.input-sources current 2
+        notify-send -h string:x-canonical-private-synchronous:hypr-cfg -u low "Keyboard Layout" "Switched to Russian Phonetic (RU)"
+        ;;
+    *)
+        gsettings set org.gnome.desktop.input-sources current 0
+        notify-send -h string:x-canonical-private-synchronous:hypr-cfg -u low "Keyboard Layout" "Switched to English (US)"
+        ;;
+esac
+
