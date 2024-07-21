@@ -1,0 +1,1253 @@
+/*************************************************************************************************************************************************************************************************************************************************************
+
+"userContent.css" is a custom CSS file that can be used to specify CSS style rules for Floorp's intenal site using "chrome" privileges.
+For instance, if you want to apply CSS at "about:newtab" and "about:home", you can use the following CSS rule:
+
+***********************************************************************
+@-moz-document url-prefix("about:newtab"), url-prefix("about:home") { *
+                                                                      *
+* Write your css *                                                    *
+                                                                      *
+}                                                                     *
+***********************************************************************
+
+NOTE: You can use the userContent.css file without change preferences (about:config)
+
+************************************************************************************************************************************************************************************************************************************************************/
+
+@charset "UTF-8";
+/* Please write your custom CSS under this line*/
+
+@import "css/reddit.css";
+@import "css/discordCatppuccin.css";
+
+:root {
+  --dark-color1: #11131c;
+  --dark-color2: #1d202f;
+  --dark-color3: #1f2334;
+  --dark-color4: #272c41;
+
+  --dark-color5: #24222D;
+  --dark-color6: #33313c;
+  --dark-color7: #42404b;
+
+  --light-color1: #f0f0f0;
+  --light-color2: #c7c7c7;
+  --light-color3: #9d9d9d;
+  --light-color4: #8c8c8c;
+
+  --light-color5: #e4e4e4;
+  --light-color6: #cacaca;
+  --light-color7: #c2c2c2;
+
+  --blue-color: #0078d7;
+
+  --gtk-color: #d700d2;
+  --theme-tab-toolbar-background: #232634;
+
+}
+
+/* Default theme set to Dark theme */
+
+/*================ DARK THEME ================*/
+
+:root,
+:root[style*="--lwt-accent-color: rgb(28, 27, 34)"],
+:root[style*="--lwt-accent-color: rgb(12, 12, 13)"],
+:root[style*="--newtab-background-color: rgba(43, 42, 51, 1)"],
+:root[style*="--newtab-background-color: rgb(43, 42, 51)"],
+:root[style*="--in-content-box-background: rgb(35, 34, 43)"],
+:root[class*="theme-dark"],
+:root[privatebrowsingmode=temporary] {
+  --back-color1: var(--dark-color1);
+  --back-color2: var(--dark-color2);
+  --back-color3: var(--dark-color3);
+  --back-color4: var(--dark-color4);
+
+  --text-color1: var(--light-color5);
+  --text-color2: var(--light-color6);
+  --text-color3: var(--light-color7);
+}
+
+/* Theme for browser webpages */
+@media (-moz-toolbar-prefers-color-scheme: dark),
+(prefers-color-scheme: dark) {
+  :root {
+    --back-color1: var(--dark-color1);
+    --back-color2: var(--dark-color2);
+    --back-color3: var(--dark-color3);
+    --back-color4: var(--dark-color4);
+
+    --text-color1: var(--light-color5);
+    --text-color2: var(--light-color6);
+    --text-color3: var(--light-color7);
+  }
+}
+
+/*================ LIGHT THEME ================*/
+
+:root[style*="--lwt-accent-color: rgb(227, 228, 230)"],
+:root[style*="--lwt-accent-color: rgb(240, 240, 244)"],
+:root[style*="--newtab-background-color: rgba(249, 249, 251, 1)"],
+:root[style*="--newtab-background-color: rgb(249, 249, 251)"],
+:root[style*="--in-content-box-background: #fff"] {
+  --back-color1: var(--light-color1);
+  --back-color2: var(--light-color2);
+  --back-color3: var(--light-color3);
+  --back-color4: var(--light-color4);
+
+  --text-color1: var(--dark-color5);
+  --text-color2: var(--dark-color6);
+  --text-color3: var(--dark-color7);
+}
+
+/* Theme for browser webpages */
+@media (-moz-toolbar-prefers-color-scheme: light),
+(prefers-color-scheme: light) {
+  :root {
+    --back-color1: var(--light-color1);
+    --back-color2: var(--light-color2);
+    --back-color3: var(--light-color3);
+    --back-color4: var(--light-color4);
+
+    --text-color1: var(--dark-color5);
+    --text-color2: var(--dark-color6);
+    --text-color3: var(--dark-color7);
+  }
+}
+
+
+.browserStack {
+  background-color: #232634 !important;
+}
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+.browserContainer[responsivemode],
+vbox[anonid=browserContainer][responsivemode] {
+  background-color: #232634 !important;
+}
+
+#appcontent[devtoolstheme="dark"] {
+  --rdm-browser-container-background: transparent !important;
+}
+
+
+
+
+@-moz-document url-prefix(chrome: //),
+  url(https://www.mozilla.org/credits/),
+  url-prefix(https: //raw.githubusercontent.com),
+    url-prefix(https: //www.keybr.com),
+
+      url-prefix(view-source:) {
+        :root {
+          --in-content-page-background: var(--back-color1) !important;
+          --in-content-page-color: var(--text-color1) !important;
+          --button-hover-color: var(--back-color1) !important;
+        }
+
+        html, body {
+          background-color: var(--in-content-page-background) !important;
+          color: var(--in-content-page-color) !important;
+        }
+      }
+
+      @-moz-document url-prefix(about:) {
+        :root {
+          --in-content-page-background: var(--back-color1) !important;
+          --in-content-page-color: var(--text-color1) !important;
+          --button-hover-color: var(--back-color1) !important;
+        }
+      }
+
+      @-moz-document url-prefix("about:blank") {
+        body {
+          background-color: var(--back-color1) !important;
+        }
+      }
+
+
+      /* ============= ADDON PAGE ============= */
+
+      @-moz-document url-prefix("about:addons") {
+        #header-inner {
+          margin: 2px 0px -40px 4px !important;
+        }
+
+        #heading {
+          margin: 1px 0px 1px -4px !important;
+        }
+
+        #main {
+          margin-top: 5px;
+        }
+
+        .addon-name {
+          font-weight: 400 !important;
+        }
+
+        .addon.card {
+          margin-bottom: 5px !important;
+          /* min-width: 1000px !important;*/
+        }
+
+        addon-card:not([expanded]) > .addon.card:hover {
+          box-shadow: var(--back-color3) !important;
+        }
+
+        .card {
+          background: var(--back-color2) !important;
+          display: block !important;
+        }
+
+        .card-contents {
+          flex-direction: row !important;
+          display: block !important;
+        }
+
+        .list-section-heading {
+          margin-bottom: 9px !important;
+        }
+
+        .more-options-button {
+          top: 8px;
+        }
+
+        .prefs-button, .addon-description, .addon-badge, .help-button, #search-label, #category-discover, #heading-name, .list-section-heading, .recommended-extensions-section {
+          display:none;
+        }
+
+        .sidebar-footer-button {
+          margin-bottom: 36px;
+        }
+      }
+
+
+
+
+
+      /* ============= Error Pages ============= */
+      @-moz-document url-prefix("about:neterror") {
+        #errorPageContainer {
+          background: url("./icons/sonic.gif") no-repeat left center !important;
+          background-size: 38% !important;
+          display: flex !important;
+          flex-direction: column !important;
+          max-width: calc(100vw / 2) !important;
+          max-height: calc(100vh / 2) !important;
+        }
+
+        #text-container {
+          padding-inline-start: 38% !important;
+        }
+      }
+
+      @-moz-document url-prefix("about:restartrequired") {
+        #errorPageContainer {
+          background: url("./icons/fox-transparent.gif") no-repeat left center !important;
+          background-size: 38% !important;
+          display: flex !important;
+          flex-direction: column !important;
+          max-width: calc(100vw / 2) !important;
+          max-height: calc(100vh / 2) !important;
+        }
+
+        #text-container {
+          padding-inline-start: 38% !important;
+        }
+      }
+
+
+
+
+
+
+      /*================== READER VIEW ==================*/
+
+      @-moz-document url-prefix("about:reader") {
+        html {
+          background: var(--back-color1);
+        }
+
+        toolbar > reader-toolbar {
+          border-radius: 3px !important;
+        }
+
+        /*Dark*/
+        body.loaded.dark {
+          --toolbar-bgcolor: var(--back-color2) !important;
+          --toolbar-border: var(--back-color1) !important;
+          --toolbar-hover: var(--back-color3) !important;
+          --popup-bgcolor: var(--back-color2) !important;
+          --popup-border: var(--back-color3) !important;
+          --font-color: var(--text-color3) !important;
+          --icon-fill: var(--text-color3) !important;
+          background: var(--back-color1) !important;
+          --blue-40:var(--text-color1) !important;
+          --blue-40-a30:rgba(144, 89, 255, 0.3) !important;
+          --active-color:var(--text-color1) !important;
+        }
+
+        /*Light*/
+        body.loaded.light {
+          --toolbar-bgcolor: var(--light-color2) !important;
+          --toolbar-border: var(--light-color1) !important;
+          --toolbar-hover: var(--light-color3) !important;
+          --popup-bgcolor: var(--light-color2) !important;
+          --popup-border: var(--light-color3) !important;
+          --font-color: var(--dark-color7) !important;
+          --icon-fill: var(--dark-color7) !important;
+          background: var(--light-color1) !important;
+          --blue-40:var(--dark-color5) !important;
+          --blue-40-a30:rgba(51, 46, 86, 0.3) !important;
+          --active-color:var(--dark-color5) !important;
+        }
+
+      }
+
+
+
+
+
+
+      /* =============== Scrollbar =============== */
+
+      :root {
+        --addon-icon-size: 26px !important; --card-padding: 14px !important;
+        scrollbar-color: rgb(29, 33, 38) rgba(0, 0, 0, 0);
+        scrollbar-width: thin;
+      }
+
+
+
+
+
+
+      /* =============== Customize Developer Tools =============== */
+
+      @-moz-document url("chrome://devtools/content/styleeditor/index.xhtml") {
+        .splitview-nav .unsaved {
+          background: linear-gradient(to right, #f0a 4px, #f0a4 4px, transparent) !important;
+        }
+
+        .splitview-nav .unsaved.splitview-active {
+          background: linear-gradient(to right, #f0a 4px, #f0a4 4px) !important;
+        }
+
+        /* Auto-Highlight common user style filenames */
+        .splitview-nav label[value="userChrome.css"],
+        .splitview-nav label[value="userContent.css"],
+        .splitview-nav label[value$=".uc.css"] {
+          color: #f0a !important;
+        }
+      }
+
+
+
+
+
+
+      /* =============== Hide text in built-in print screen =============== */
+      @-moz-document url-prefix("moz-extension://08b76965-6643-443a-9219-b05054b0b4c7/blank.html") {
+        .preview-instructions, .face-container, .cancel-shot {
+          display: none !important;
+        }
+      }
+
+
+
+
+
+
+      /* =============== Login page changes =============== */
+      @-moz-document url-prefix("about:logins") {
+        .login-list-item {
+          background-color: var(--back-color1) !important;
+        }
+      }
+
+
+
+
+
+
+
+
+      @-moz-document regexp(".*\\.(p|P)(d|D)(f|F).*") {
+        :root {
+          --toolbar-bg-color: var(--back-color1) !important;
+          --body-bg-color: var(--back-color1) !important;
+          --sidebar-bg-color: var(--back-color1) !important;
+          --button-hover-color: var(--back-color1) !important;
+          --field-bg-color: var(--back-color1) !important;
+        }
+
+        @media (-moz-toolbar-prefers-color-scheme: dark), (prefers-color-scheme: dark) {
+          #viewer {
+            filter: invert(0);
+          }
+        }
+
+        .dropdownToolbarButton > select {
+          background-color: var(--back-color2) !important;
+        }
+
+        .dropdownToolbarButton > select:hover {
+          background-color: var(--back-color1) !important;
+        }
+      }
+
+
+
+
+
+
+      /* =============== Site Specific Customisations =============== */
+
+      @-moz-document url("https://www.qwiklabs.com/public_profiles/8ce32532-ca12-4a89-aed0-99c9316cae73") {
+        .container img {
+          height: 180px !important;
+          width: 180px !important;
+        }
+
+        .container .title {
+          width: 250px;
+          text-align: center;
+        }
+      }
+
+      @-moz-document url-prefix("https://www.cloudskillsboost.google") {
+        :root {
+          --base-surface-color: #11131C !important;
+          --base-text-on-surface-color: #d3cfc9 !important;
+        }
+      }
+
+      @-moz-document url-prefix("https://jsfiddle.net/") {
+        #sidebar {
+          width: 125px;
+        }
+
+        #content {
+          margin-left: -84px !important;
+        }
+
+        #sidebar * {
+          overflow: hidden;
+        }
+
+        #s-bottom {
+          display: none !important;
+        }
+      }
+
+      @-moz-document url-prefix("https://www.notion.so") {
+        .notion-selectable.notion-text-block {
+          margin-top: 0px !important;
+          margin-bottom: 0px !important;
+        }
+
+        .notion-selectable.notion-text-block .notranslate {
+          padding: 0px 2px !important;
+        }
+      }
+
+      /* @import "css/reddit.css"; */
+      /* @import "css/discordCatppuccin.css"; */
+
+      :root {
+        --dark-color1: #11131c;
+        --dark-color2: #1d202f;
+        --dark-color3: #1f2334;
+        --dark-color4: #272c41;
+
+        --dark-color5: #24222D;
+        --dark-color6: #33313c;
+        --dark-color7: #42404b;
+
+        --light-color1: #f0f0f0;
+        --light-color2: #c7c7c7;
+        --light-color3: #9d9d9d;
+        --light-color4: #8c8c8c;
+
+        --light-color5: #e4e4e4;
+        --light-color6: #cacaca;
+        --light-color7: #c2c2c2;
+
+        --blue-color: #0078d7;
+
+        --gtk-color: #d700d2;
+
+      }
+
+      /* Default theme set to Dark theme */
+
+      /*================ DARK THEME ================*/
+
+      :root,
+      :root[style*="--lwt-accent-color: rgb(28, 27, 34)"],
+      :root[style*="--lwt-accent-color: rgb(12, 12, 13)"],
+      :root[style*="--newtab-background-color: rgba(43, 42, 51, 1)"],
+      :root[style*="--newtab-background-color: rgb(43, 42, 51)"],
+      :root[style*="--in-content-box-background: rgb(35, 34, 43)"],
+      :root[class*="theme-dark"],
+      :root[privatebrowsingmode=temporary] {
+        --back-color1: var(--dark-color1);
+        --back-color2: var(--dark-color2);
+        --back-color3: var(--dark-color3);
+        --back-color4: var(--dark-color4);
+
+        --text-color1: var(--light-color5);
+        --text-color2: var(--light-color6);
+        --text-color3: var(--light-color7);
+      }
+
+      /* Theme for browser webpages */
+      @media (-moz-toolbar-prefers-color-scheme: dark), (prefers-color-scheme: dark) {
+        :root {
+          --back-color1: var(--dark-color1);
+          --back-color2: var(--dark-color2);
+          --back-color3: var(--dark-color3);
+          --back-color4: var(--dark-color4);
+
+          --text-color1: var(--light-color5);
+          --text-color2: var(--light-color6);
+          --text-color3: var(--light-color7);
+        }
+      }
+
+      /*================ LIGHT THEME ================*/
+
+      :root[style*="--lwt-accent-color: rgb(227, 228, 230)"],
+      :root[style*="--lwt-accent-color: rgb(240, 240, 244)"],
+      :root[style*="--newtab-background-color: rgba(249, 249, 251, 1)"],
+      :root[style*="--newtab-background-color: rgb(249, 249, 251)"],
+      :root[style*="--in-content-box-background: #fff"] {
+        --back-color1: var(--light-color1);
+        --back-color2: var(--light-color2);
+        --back-color3: var(--light-color3);
+        --back-color4: var(--light-color4);
+
+        --text-color1: var(--dark-color5);
+        --text-color2: var(--dark-color6);
+        --text-color3: var(--dark-color7);
+      }
+
+      /* Theme for browser webpages */
+      @media (-moz-toolbar-prefers-color-scheme: light), (prefers-color-scheme: light) {
+        :root {
+          --back-color1: var(--light-color1);
+          --back-color2: var(--light-color2);
+          --back-color3: var(--light-color3);
+          --back-color4: var(--light-color4);
+
+          --text-color1: var(--dark-color5);
+          --text-color2: var(--dark-color6);
+          --text-color3: var(--dark-color7);
+        }
+      }
+
+
+
+
+
+
+
+      @-moz-document url-prefix(chrome: //),
+        url(https://www.mozilla.org/credits/),
+        url-prefix(https: //raw.githubusercontent.com),
+          url-prefix(https: //www.keybr.com),
+
+            url-prefix(view-source:) {
+              :root {
+                --in-content-page-background: var(--back-color1) !important;
+                --in-content-page-color: var(--text-color1) !important;
+                --button-hover-color: var(--back-color1) !important;
+              }
+
+              html, body {
+                background-color: var(--in-content-page-background) !important;
+                color: var(--in-content-page-color) !important;
+              }
+            }
+
+            @-moz-document url-prefix(about:) {
+              :root {
+                --in-content-page-background: var(--back-color1) !important;
+                --in-content-page-color: var(--text-color1) !important;
+                --button-hover-color: var(--back-color1) !important;
+              }
+            }
+
+            @-moz-document url-prefix("about:blank") {
+              body {
+                background-color: var(--back-color1) !important;
+              }
+            }
+
+
+            /* ============= ADDON PAGE ============= */
+
+            @-moz-document url-prefix("about:addons") {
+              #header-inner {
+                margin: 2px 0px -40px 4px !important;
+              }
+
+              #heading {
+                margin: 1px 0px 1px -4px !important;
+              }
+
+              #main {
+                margin-top: 5px;
+              }
+
+              .addon-name {
+                font-weight: 400 !important;
+              }
+
+              .addon.card {
+                margin-bottom: 5px !important;
+                /* min-width: 1000px !important;*/
+              }
+
+              addon-card:not([expanded]) > .addon.card:hover {
+                box-shadow: var(--back-color3) !important;
+              }
+
+              .card {
+                background: var(--back-color2) !important;
+                display: block !important;
+              }
+
+              .card-contents {
+                flex-direction: row !important;
+                display: block !important;
+              }
+
+              .list-section-heading {
+                margin-bottom: 9px !important;
+              }
+
+              .more-options-button {
+                top: 8px;
+              }
+
+              .prefs-button, .addon-description, .addon-badge, .help-button, #search-label, #category-discover, #heading-name, .list-section-heading, .recommended-extensions-section {
+                display:none;
+              }
+
+              .sidebar-footer-button {
+                margin-bottom: 36px;
+              }
+            }
+
+
+
+
+
+            /* ============= Error Pages ============= */
+            @-moz-document url-prefix("about:neterror") {
+              #errorPageContainer {
+                background: url("./icons/sonic.gif") no-repeat left center !important;
+                background-size: 38% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                max-width: calc(100vw / 2) !important;
+                max-height: calc(100vh / 2) !important;
+              }
+
+              #text-container {
+                padding-inline-start: 38% !important;
+              }
+            }
+
+            @-moz-document url-prefix("about:restartrequired") {
+              #errorPageContainer {
+                background: url("./icons/fox-transparent.gif") no-repeat left center !important;
+                background-size: 38% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                max-width: calc(100vw / 2) !important;
+                max-height: calc(100vh / 2) !important;
+              }
+
+              #text-container {
+                padding-inline-start: 38% !important;
+              }
+            }
+
+
+
+
+
+
+            /*================== READER VIEW ==================*/
+
+            @-moz-document url-prefix("about:reader") {
+              html {
+                background: var(--back-color1);
+              }
+
+              toolbar > reader-toolbar {
+                border-radius: 3px !important;
+              }
+
+              /*Dark*/
+              body.loaded.dark {
+                --toolbar-bgcolor: var(--back-color2) !important;
+                --toolbar-border: var(--back-color1) !important;
+                --toolbar-hover: var(--back-color3) !important;
+                --popup-bgcolor: var(--back-color2) !important;
+                --popup-border: var(--back-color3) !important;
+                --font-color: var(--text-color3) !important;
+                --icon-fill: var(--text-color3) !important;
+                background: var(--back-color1) !important;
+                --blue-40:var(--text-color1) !important;
+                --blue-40-a30:rgba(144, 89, 255, 0.3) !important;
+                --active-color:var(--text-color1) !important;
+              }
+
+              /*Light*/
+              body.loaded.light {
+                --toolbar-bgcolor: var(--light-color2) !important;
+                --toolbar-border: var(--light-color1) !important;
+                --toolbar-hover: var(--light-color3) !important;
+                --popup-bgcolor: var(--light-color2) !important;
+                --popup-border: var(--light-color3) !important;
+                --font-color: var(--dark-color7) !important;
+                --icon-fill: var(--dark-color7) !important;
+                background: var(--light-color1) !important;
+                --blue-40:var(--dark-color5) !important;
+                --blue-40-a30:rgba(51, 46, 86, 0.3) !important;
+                --active-color:var(--dark-color5) !important;
+              }
+
+            }
+
+
+
+
+
+
+            /* =============== Scrollbar =============== */
+
+            :root {
+              --addon-icon-size: 26px !important; --card-padding: 14px !important;
+              scrollbar-color: rgb(29, 33, 38) rgba(0, 0, 0, 0);
+              scrollbar-width: thin;
+            }
+
+
+
+
+
+
+            /* =============== Customize Developer Tools =============== */
+
+            @-moz-document url("chrome://devtools/content/styleeditor/index.xhtml") {
+              .splitview-nav .unsaved {
+                background: linear-gradient(to right, #f0a 4px, #f0a4 4px, transparent) !important;
+              }
+
+              .splitview-nav .unsaved.splitview-active {
+                background: linear-gradient(to right, #f0a 4px, #f0a4 4px) !important;
+              }
+
+              /* Auto-Highlight common user style filenames */
+              .splitview-nav label[value="userChrome.css"],
+              .splitview-nav label[value="userContent.css"],
+              .splitview-nav label[value$=".uc.css"] {
+                color: #f0a !important;
+              }
+            }
+
+
+
+
+
+
+            /* =============== Hide text in built-in print screen =============== */
+            @-moz-document url-prefix("moz-extension://08b76965-6643-443a-9219-b05054b0b4c7/blank.html") {
+              .preview-instructions, .face-container, .cancel-shot {
+                display: none !important;
+              }
+            }
+
+
+
+
+
+
+            /* =============== Login page changes =============== */
+            @-moz-document url-prefix("about:logins") {
+              .login-list-item {
+                background-color: var(--back-color1) !important;
+              }
+            }
+
+
+
+
+
+
+
+
+            @-moz-document regexp(".*\\.(p|P)(d|D)(f|F).*") {
+              :root {
+                --toolbar-bg-color: var(--back-color1) !important;
+                --body-bg-color: var(--back-color1) !important;
+                --sidebar-bg-color: var(--back-color1) !important;
+                --button-hover-color: var(--back-color1) !important;
+                --field-bg-color: var(--back-color1) !important;
+              }
+
+              @media (-moz-toolbar-prefers-color-scheme: dark), (prefers-color-scheme: dark) {
+                #viewer {
+                  filter: invert(0);
+                }
+              }
+
+              .dropdownToolbarButton > select {
+                background-color: var(--back-color2) !important;
+              }
+
+              .dropdownToolbarButton > select:hover {
+                background-color: var(--back-color1) !important;
+              }
+            }
+
+
+
+
+
+
+            /* =============== Site Specific Customisations =============== */
+
+            @-moz-document url("https://www.qwiklabs.com/public_profiles/8ce32532-ca12-4a89-aed0-99c9316cae73") {
+              .container img {
+                height: 180px !important;
+                width: 180px !important;
+              }
+
+              .container .title {
+                width: 250px;
+                text-align: center;
+              }
+            }
+
+            @-moz-document url-prefix("https://www.cloudskillsboost.google") {
+              :root {
+                --base-surface-color: #11131C !important;
+                --base-text-on-surface-color: #d3cfc9 !important;
+              }
+            }
+
+            @-moz-document url-prefix("https://jsfiddle.net/") {
+              #sidebar {
+                width: 125px;
+              }
+
+              #content {
+                margin-left: -84px !important;
+              }
+
+              #sidebar * {
+                overflow: hidden;
+              }
+
+              #s-bottom {
+                display: none !important;
+              }
+            }
+
+            @-moz-document url-prefix("https://www.notion.so") {
+              .notion-selectable.notion-text-block {
+                margin-top: 0px !important;
+                margin-bottom: 0px !important;
+              }
+
+              .notion-selectable.notion-text-block .notranslate {
+                padding: 0px 2px !important;
+              }
+            }
+
+            /* custom css for devtools and shit */
+
+            .toolbarbutton-icon {
+              display: none;
+            }
+
+            @-moz-document url-prefix("https://www.notion.so") {
+              .notion-selectable.notion-text-block {
+                margin-top: 0px !important;
+                margin-bottom: 0px !important;
+              }
+
+              .notion-selectable.notion-text-block .notranslate {
+                padding: 0px 2px !important;
+              }
+            }
+
+            /* custom css for devtools and shit */
+
+            .toolbarbutton-icon {
+              display: none;
+            }
+
+            @namespace url(http://www.w3.org/1999/xhtml);
+
+            @-moz-document regexp("chrome://devtools/content/.*") {
+              :root.theme-dark {
+                --theme-tab-toolbar-background: #232634;
+              }
+
+              * {
+
+
+                font-size: 11px !important;
+                /*! color: #CDD6F4; */
+                /* Flamingo, a lighter text color from Catppuccin Mocha */
+
+                border-radius: 4px !important;
+                /* Rounded corners for a modern look */
+                /* transition: all 0.1s ease-in-out !important; /* Smooth transitions for interactive feedback */
+                padding: 0.1px 0.1px;
+                /* Uniform padding for visual consistency */
+                margin: 1px 0.4px;
+              }
+
+
+              .theme-dark > * {
+                background-color: #121929 !important;
+              }
+
+              .dark > * {
+                background-color: #121929 !important;
+              }
+
+              .devtools-tabbar {
+                background: #121929 !important;
+              }
+
+              .inspector {
+                background-color: #121929 !important;
+              }
+
+              .debugger {
+                background-color: #121929 !important;
+              }
+
+              .devtools-tabbar {
+                background-color: #121929 !important;
+              }
+
+              .devtool-toolbox-side-iframe {
+                background-color: #121929 !important;
+              }
+
+              .devtools-tabbar {
+                background: #232634 !important;
+                background-color: #121929 !important;
+                background-color: #232634 !important;
+                color: red;
+              }
+
+              .flexible-output-input {
+                background-color: #121929 !important;
+              }
+
+              button {
+                background-color: #121929 !important;
+                color: #CDD6F4 !important;
+              }
+
+              .theme-dark > * {
+                background-color: #232634 !important;
+                background-color: #121929 !important;
+              }
+
+              .monitor-panel {
+                background-color: #121929 !important;
+              }
+
+              .network-monitor {
+                background-color: #121929 !important;
+              }
+
+              .sources-panel {
+                background-color: #121929 !important;
+              }
+
+              .secondary-panes-wrapper {
+                background-color: #121929 !important;
+              }
+
+              .tab {
+                background-color: #121929 !important;
+              }
+
+              .editor-pane {
+                background-color: #121929 !important;
+              }
+
+              .secondary-panes {
+                background-color: #121929 !important;
+              }
+
+
+              /* div {
+                background-color: #232634 !important;
+                background-color: #121929 !important;
+                background: #232634 !important;
+                color: #CDD6F4;
+              } */
+
+
+              tr > * {
+                background: #121929 !important;
+                /* Smooth gradient for a subtle texture */
+                border: 1px rgba(183, 189, 248, 0.2) solid !important;
+                border-radius: 0px !important;
+              }
+
+              /* td > * {} */
+
+              .devtools-sidebar-tabs, .devtools-sidebar-tabs * {
+                /* background: linear-gradient(145deg, #1E1E2E, #232634) !important; */
+                background: #121929 !important;
+                /* Ensuring the gradient is applied universally */
+                margin: 0.2px 0.2px !important;
+                /* Adjusted margin */
+                padding: 0.2px 0.2px !important;
+                /* Adjusted padding */
+              }
+
+              .devtools-tabbar, .theme-toolbar, .devtools-toolbar, .devtools-sidebar-tabs tabs, .devtools-sidebar-alltabs, .cm-s-mozilla .CodeMirror-dialog {
+                background-color: #121929 !important;
+                /* Surface color from Catppuccin Mocha */
+                border-bottom: 2px solid #45475A !important;
+                /* Solid border for a clean division */
+              }
+
+              .message, .webconsole-app:not(.jsterm-editor) .eager-evaluation-result, .message.info, .message.warn, .message.error {
+                background-color: #121929 !important;
+                /* Darker background for better contrast */
+                border-left: 4px solid #45475A !important;
+                /* Prominent left border for categorization */
+              }
+
+              .message.error {
+                border-left-color: #EB6F92 !important;
+                /* Distinct border color for error identification */
+              }
+
+              .message:hover, .devtools-tabbar:hover, .theme-toolbar:hover, .devtools-toolbar:hover {
+                border-left-color: #F28FAD !important;
+                /* Animated border color on hover */
+                background-color: #0C101B !important;
+                /* Darker background on hover for depth */
+                color: #F5E0DC !important;
+                /* Change text color on hover for better visibility */
+              }
+
+              .devtools-toolbar * {
+                margin: 0 !important;
+                /* Removes all margins within .devtools-toolbar */
+              }
+
+              .devtools-input-toolbar, .CodeMirror.cm-s-mozilla {
+                transition: background-color 0.5s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out !important;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+                /* Subtle shadow for depth */
+              }
+
+              .devtools-input-toolbar:focus-within, .CodeMirror.cm-s-mozilla:focus-within {
+                box-shadow: 0 0 8px rgba(242, 143, 173, 0.8) !important;
+                border: 2px rgba(237, 135, 150, 0.8) solid;
+              }
+
+              .jsterm-input-container, .eager-evaluation-result {
+                background: transparent !important;
+                margin: 10px !important;
+              }
+
+              .eager-evaluation-result {
+                display: none !important;
+              }
+
+              .CodeMirror-wrap {
+                /* background: #45475A !important; */
+                background-color: #121929 !important;
+                border: 2px rgba(237, 135, 150, 0.2) solid;
+                padding-bottom: 5px;
+                bottom: 3px;
+              }
+
+  .devtools-tabbar {
+    background-color: #121929 !important;
+  background: #232634 !important;
+
+  }
+
+  .theme-sidebar {
+    background-color: #121929 !important;
+    background: #232634 !important;
+  }
+
+  splitter.devtools-horizontal-splitter, .devtools-side-splitter {
+    background-color: #45475A !important;
+    color: #CDD6F4 !important;
+
+    /* Consistent background for splitters */
+    transition: background-color 0.2s ease-in-out, height 0.2s ease-in-out !important;
+  }
+
+  button .devtools-tab {
+    background-color: #121929 !important;
+    border: 2px solid rgba(166, 218, 149) !important;
+    border-radius: 4px !important;
+    margin: 2px !important;
+  }
+
+  .source-footer {
+    background-color: #121929 !important;
+  }
+
+  .devtools-tabbar {
+    background: #121929 !important;
+  }
+
+  .theme-toolbar, .devtools-toolbar, .devtools-sidebar-tabs tabs, .devtools-sidebar-alltabs, .cm-s-mozilla .CodeMirror-dialog {
+    background-color: #121929 !important;
+    /* Surface color from Catppuccin Mocha */
+    border-bottom: 2px solid #45475A !important;
+    /* Solid border for a clean division */
+  }
+
+  .accordion ._header {
+    background-color: #0B101A !important;
+  }
+
+.source-header {
+  background-color: #121929 !important;
+  }
+
+
+.theme-sidebar {
+  background-color: #121929 !important;
+  }
+
+  .theme-toolbar {
+    background-color: #121929 !important;
+  }
+
+  .theme-body {
+    background-color: #121929 !important;
+  }
+
+  #storage-tree {
+    background-color: #121929 !important;
+  }
+
+
+  .accordion {
+    background-color: #121929 !important;
+    border: 1px solid #45475A !important;
+    border-radius: 4px !important;
+    margin: 2px !important;
+                outline: 1px rgba(198, 160, 246, 0.4) solid !important;
+                /* Distinct border color for error identification */
+                border-radius: 4px !important;
+
+  }
+
+  .CodeMirror-gutters {
+    background-color: #121929 !important;
+    border-right: 1px solid #45475A !important;
+  }
+
+  .secondary-panes {
+    background-color: #121929 !important;
+  }
+
+.CodeMirror-gutters{
+  background-color: #121929 !important; 
+    border-right: 1px solid #45475A !important;
+  }
+.editor-wrapper .editor-mount {
+  background-color: #121929 !important;
+  border: 1px solid #45475A !important;
+  border-radius: 4px !important;
+    margin: 2px !important;
+  }
+  .command-bar {
+    background-color: #121929 !important;
+    margin: 2px !important;
+                outline: 1px rgba(198, 160, 246, 0.4) solid !important;
+                /* Distinct border color for error identification */
+                border-radius: 4px !important;
+  }
+ 
+.splitview-nav {
+  background-color: #121929 !important; 
+                outline: 1px rgba(198, 160, 246, 0.4) solid !important;
+                /* Distinct border color for error identification */
+                border-radius: 4px !important;
+
+  }
+
+
+              .browserContainer.responsive-mode > .browserStack > .viewport-resize-handle,
+              .browserContainer.responsive-mode > .browserStack > .viewport-horizontal-resize-handle,
+              .browserContainer.responsive-mode > .browserStack > .viewport-vertical-resize-handle {
+                cursor: pointer !important;
+                /* Indicates interactivity */
+                animation: pulse 0.2s infinite ease-in-out !important;
+                /* Subtle highlighting animation */
+              }
+
+              @keyframes pulse {
+                0%, 100% {
+                  border-color: transparent !important;
+                }
+
+                50% {
+                  border-color: #F28FAD !important;
+                }
+              }
+
+              splitter.devtools-horizontal-splitter, .devtools-side-splitter {
+                background-color: #121929 !important;
+                /* Consistent background for splitters */
+                transition: background-color 0.2s ease-in-out, height 0.2s ease-in-out !important;
+              }
+
+              #toolbox-deck ~ splitter.devtools-horizontal-splitter:hover {
+                background-color: #121929 !important;
+                /* Hover effect to indicate interactiveness */
+                height: 6px !important;
+                /* Dynamic height change on hover */
+              }
+
+              .webconsole-filteringbar-wrapper {
+                margin: 0px !important;
+                padding: 0px !important;
+              }
+
+            .requests-list-column {
+                outline: 1px rgba(198, 160, 246, 0.4) solid !important;
+                /* Distinct border color for error identification */
+                border-radius: 4px !important;
+                /* Rounded corners for a modern look */
+
+              }
+
+              .requests-list-table {
+                background-color: transparent !important;
+                /* Hover effect to indicate interactiveness */
+                border-spacing: 5px 5px !important;
+                /* Adds space between cells */
+                border-collapse: separate !important;
+                /* Required for border-spacing to work */
+              }            }
